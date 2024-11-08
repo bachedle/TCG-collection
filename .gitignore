@@ -35,3 +35,5 @@ temp/
 # System files
 Thumbs.db
 .DS_Store
+
+.babelrc
