@@ -8,7 +8,8 @@ const initWebRoutes = (app) => {
     //day la route mac dinh
     router.get('/home', homeController.getHomePage);
     router.get('/deck', homeController.getDeckPage);
-    router.post('/home', homeController.registerUser);
+    router.get('/user/register', homeController.getRegisterPage);
+    router.post('/user/register', homeController.registerUser);
     //day la route khac
     router.get('/aboutme', (req, res) => {
         res.send('concac2hon');

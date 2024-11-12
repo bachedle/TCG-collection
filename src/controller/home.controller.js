@@ -2,6 +2,10 @@ import userService from '../service/user.service';
 
 const getHomePage = (req, res) => {
     //tham so va function o day
+    res.send('homepage here');
+}
+
+const getRegisterPage = (req, res) => {
     res.render('user.ejs');
 }
 
@@ -22,5 +26,6 @@ const registerUser = (req, res) => {
 module.exports = {
     getHomePage: getHomePage,
     getDeckPage: getDeckPage,
-    registerUser: registerUser
+    registerUser: registerUser,
+    getRegisterPage: getRegisterPage
 }

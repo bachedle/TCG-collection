@@ -3,12 +3,14 @@ import viewEngine from './config/viewEngine.js';
 import initWebRoutes from './routes/web.route.js';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
+import connection from './config/connectDB.js';
 
 dotenv.config();
 
 const app = express();
 
-
+//test connection
+connection();
 
 //config view engine
 viewEngine(app);
