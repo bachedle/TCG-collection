@@ -1,34 +1,50 @@
 import bcrypt from 'bcrypt';
-import mysql from 'mysql2';
 const salt = bcrypt.genSaltSync(10);
 
 // create the connection to database
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'tcg_test'
-});
+const db = require('../models');
+
 //ham hash password
 const hashUserPassword = (userPassword) => {
     return bcrypt.hashSync(userPassword, salt);
 }
 
-const createNewUser = (username, email, password) => {
+const createNewUser = (userName, email, password) => {
     let hashPassword = hashUserPassword(password);
 
-    connection.query(
-        `insert into users (username, email, password) values ('${username}', '${email}', '${hashPassword}')`,
-        function(err, results, fields) {
-            console.log(results);
-            if (err) {
-                console.log(err);
-            }
+    return db.User.create({
+        userName: userName,
+        email: email,
+        password: hashPassword
+    });
+}
+
+const loginUser = (email, password) => {
+    let user = db.User.findOne({
+        where: { email: email }
+    });
+
+    if (user === null) 
+    {
+        throw new Error('User not found');
+    }
+    else 
+    {   
+        if(hashUserPassword(password, salt) != user.password)
+        {
+            throw new Error('Password is incorrect');
         }
-    );
+        else 
+        {
+            return true;
+        }
+    }
 }
 
 module.exports = {
-    createNewUser: createNewUser
+    createNewUser: createNewUser,
+    loginUser: loginUser
+
 }
 
 

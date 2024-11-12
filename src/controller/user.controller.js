@@ -14,7 +14,18 @@ const registerUser = (req, res) => {
     return res.send('register success');
 }
 
+
+const loginUser = (req, res) =>
+{
+    let email = req.body.email;
+    let password = req.body.password;
+
+    userService.loginUser(email, password);
+
+    return res.send('login success');
+}
 module.exports = {
     getRegisterPage: getRegisterPage,
-    registerUser: registerUser
+    registerUser: registerUser,
+    loginUser: loginUser
 }

@@ -70,27 +70,68 @@
         </div>
 
         <!-- Card Grid -->
-        <div class="card-grid">
+        <div class="card-grid" id="cardGrid">
             <!-- Cards will be dynamically populated here -->
-            <div class="card-item">
-                <div class="card-name">Example Card</div>
-                <div class="card-type">Type: Monster</div>
-                <div class="card-rarity">Rarity: Rare</div>
-                <div class="card-quantity">Quantity: 3</div>
-            </div>
         </div>
     </div>
     </form>
 
     <script>
-        // Add your JavaScript for filtering and dynamic card loading here
-        document.getElementById('typeFilter').addEventListener('change', function() {
-            // Handle type filtering
+        // Fetch cards data when page loads
+        window.addEventListener('load', async () => {
+            await loadCards();
         });
 
-        document.getElementById('rarityFilter').addEventListener('change', function() {
-            // Handle rarity filtering
-        });
+        async function loadCards() {
+            try {
+                const response = await fetch('/cards');
+                const cards = await response.json();
+                displayCards(cards);
+            } catch (error) {
+                console.error('Error loading cards:', error);
+            }
+        }
+
+        function displayCards(cards) {
+            const cardGrid = document.getElementById('cardGrid');
+            cardGrid.innerHTML = ''; // Clear existing cards
+
+            cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'card-item';
+                cardElement.innerHTML = `
+                    <div class="card-name">${card.cardName}</div>
+                    <div class="card-type">Type: ${card.cardType}</div>
+                    <div class="card-rarity">Rarity: ${card.cardRarity}</div>
+                    <div class="card-quantity">Quantity: ${card.quantity}</div>
+                `;
+                cardGrid.appendChild(cardElement);
+            });
+        }
+
+        // Filter functionality
+        document.getElementById('typeFilter').addEventListener('change', filterCards);
+        document.getElementById('rarityFilter').addEventListener('change', filterCards);
+
+        async function filterCards() {
+            const typeFilter = document.getElementById('typeFilter').value;
+            const rarityFilter = document.getElementById('rarityFilter').value;
+
+            try {
+                const response = await fetch('/cards');
+                const cards = await response.json();
+                
+                const filteredCards = cards.filter(card => {
+                    const matchesType = !typeFilter || card.cardType === typeFilter;
+                    const matchesRarity = !rarityFilter || card.cardRarity === rarityFilter;
+                    return matchesType && matchesRarity;
+                });
+
+                displayCards(filteredCards);
+            } catch (error) {
+                console.error('Error filtering cards:', error);
+            }
+        }
     </script>
 </body>
 </html>

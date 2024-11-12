@@ -17,9 +17,6 @@ module.exports = {
       cardRarity: {
         type: Sequelize.STRING
       },
-      quantity: {
-        type: Sequelize.FLOAT
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
