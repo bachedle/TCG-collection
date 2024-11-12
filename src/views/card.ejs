@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Manager</title>
+    <style>
+        .card-container {
+            margin: 20px;
+            padding: 20px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .card-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .card-type, .card-rarity {
+            color: #666;
+            margin: 5px 0;
+        }
+        .card-quantity {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #444;
+        }
+        .filters {
+            margin-bottom: 20px;
+        }
+        .filters select {
+            margin-right: 10px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <h1>Card Collection</h1>
+        
+        <!-- Filters -->
+        <form action="/home" method="POST">
+
+        <div class="filters">
+            <select id="typeFilter">
+                <option value="">All Types</option>
+                <option value="Monster">Monster</option>
+                <option value="Spell">Spell</option>
+                <option value="Trap">Trap</option>
+            </select>
+            
+            <select id="rarityFilter">
+                <option value="">All Rarities</option>
+                <option value="Common">Common</option>
+                <option value="Rare">Rare</option>
+                <option value="Super Rare">Super Rare</option>
+                <option value="Ultra Rare">Ultra Rare</option>
+            </select>
+        </div>
+
+        <!-- Card Grid -->
+        <div class="card-grid">
+            <!-- Cards will be dynamically populated here -->
+            <div class="card-item">
+                <div class="card-name">Example Card</div>
+                <div class="card-type">Type: Monster</div>
+                <div class="card-rarity">Rarity: Rare</div>
+                <div class="card-quantity">Quantity: 3</div>
+            </div>
+        </div>
+    </div>
+    </form>
+
+    <script>
+        // Add your JavaScript for filtering and dynamic card loading here
+        document.getElementById('typeFilter').addEventListener('change', function() {
+            // Handle type filtering
+        });
+
+        document.getElementById('rarityFilter').addEventListener('change', function() {
+            // Handle rarity filtering
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck Manager</title>
+    <style>
+        .deck-container {
+            margin: 20px;
+        }
+        .deck-form {
+            margin-bottom: 20px;
+        }
+        .deck-list {
+            list-style: none;
+            padding: 0;
+        }
+        .deck-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .deck-name {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        .btn {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="deck-container">
+        <h1>Deck Manager</h1>
+        
+        <!-- Create Deck Form -->
+        <div class="deck-form">
+            <h2>Create New Deck</h2>
+            <form id="createDeckForm">
+                <input type="text" id="deckName" placeholder="Enter deck name" required>
+                <button type="submit" class="btn">Create Deck</button>
+            </form>
+        </div>
+
+        <!-- Deck List -->
+        <div>
+            <h2>Your Decks</h2>
+            <ul id="deckList" class="deck-list">
+                <!-- Decks will be populated here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDecks();
+
+            // Create Deck
+            document.getElementById('createDeckForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const deckName = document.getElementById('deckName').value;
+                try {
+                    const response = await fetch('/api/decks', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name: deckName })
+                    });
+                    if (response.ok) {
+                        document.getElementById('deckName').value = '';
+                        loadDecks();
+                    }
+                } catch (error) {
+                    console.error('Error creating deck:', error);
+                }
+            });
+
+            // Load Decks
+            async function loadDecks() {
+                try {
+                    const response = await fetch('/api/decks');
+                    const decks = await response.json();
+                    const deckList = document.getElementById('deckList');
+                    deckList.innerHTML = '';
+                    
+                    decks.forEach(deck => {
+                        const li = document.createElement('li');
+                        li.className = 'deck-item';
+                        li.innerHTML = `
+                            <span class="deck-name" id="deck-name-${deck.id}">${deck.name}</span>
+                            <input type="text" class="edit-input" id="edit-${deck.id}" style="display: none;">
+                            <button class="btn edit-btn" onclick="editDeck(${deck.id})">Edit</button>
+                            <button class="btn save-btn" onclick="saveDeck(${deck.id})" style="display: none;">Save</button>
+                            <button class="btn" onclick="deleteDeck(${deck.id})">Delete</button>
+                        `;
+                        deckList.appendChild(li);
+                    });
+                } catch (error) {
+                    console.error('Error loading decks:', error);
+                }
+            }
+
+            // Edit Deck
+            window.editDeck = function(deckId) {
+                const nameSpan = document.getElementById(`deck-name-${deckId}`);
+                const editInput = document.getElementById(`edit-${deckId}`);
+                const editBtn = nameSpan.nextElementSibling.nextElementSibling;
+                const saveBtn = editBtn.nextElementSibling;
+
+                editInput.value = nameSpan.textContent;
+                nameSpan.style.display = 'none';
+                editInput.style.display = 'inline';
+                editBtn.style.display = 'none';
+                saveBtn.style.display = 'inline';
+            }
+
+            // Save Deck
+            window.saveDeck = async function(deckId) {
+                const newName = document.getElementById(`edit-${deckId}`).value;
+                try {
+                    const response = await fetch(`/api/decks/${deckId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name: newName })
+                    });
+                    if (response.ok) {
+                        loadDecks();
+                    }
+                } catch (error) {
+                    console.error('Error updating deck:', error);
+                }
+            }
+
+            // Delete Deck
+            window.deleteDeck = async function(deckId) {
+                if (confirm('Are you sure you want to delete this deck?')) {
+                    try {
+                        const response = await fetch(`/api/decks/${deckId}`, {
+                            method: 'DELETE'
+                        });
+                        if (response.ok) {
+                            loadDecks();
+                        }
+                    } catch (error) {
+                        console.error('Error deleting deck:', error);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

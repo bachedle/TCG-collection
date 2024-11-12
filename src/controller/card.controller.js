@@ -1,7 +1,15 @@
-class cardController {
-    static create(req, res) {
-        res.send('card!');
-    }
+import cardService from '../service/card.service';
+
+const getCardPage = (req, res) => {
+    res.render('card.ejs');
 }
 
-module.exports = cardController;
+const getAllCards = async (req, res) => {
+    let cards = await cardService.getAllCards();
+    res.json(cards);
+}
+
+module.exports = {
+    getCardPage: getCardPage,
+    getAllCards: getAllCards
+}
