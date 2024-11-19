@@ -11,7 +11,6 @@ const hashUserPassword = (userPassword) => {
 
 const createNewUser = (userName, email, password) => {
     let hashPassword = hashUserPassword(password);
-
     return db.User.create({
         userName: userName,
         email: email,
@@ -19,26 +18,38 @@ const createNewUser = (userName, email, password) => {
     });
 }
 
-const loginUser = (email, password) => {
-    let user = db.User.findOne({
+const loginUser = async (email, password) => {
+    let user = await db.User.findOne({
         where: { email: email }
     });
+    console.log('User', user);
 
     if (user === null) 
     {
         throw new Error('User not found');
     }
-    else 
-    {   
-        if(hashUserPassword(password, salt) != user.password)
+    if(hashUserPassword(password, salt) != user.password)
         {
-            throw new Error('Password is incorrect');
+           console.log('Password',hashUserPassword(password, salt));
+           console.log('User password', user.password);
+           throw new Error('Password is incorrect');
         }
-        else 
-        {
-            return true;
-        }
-    }
+    return true;
+    // else 
+    // {   
+    //     // if(hashUserPassword(password, salt) != user.password)
+    //     // {
+    //     //    console.log('Password',hashUserPassword(password, salt));
+    //     //    console.log('User password', user.password);
+    //     //    throw new Error('Password is incorrect');
+    //     // }
+    //     // else 
+    //     // {
+    //     //     console.log('Password',hashUserPassword(password, salt));
+    //     //    console.log('User password', user.password);
+    //     //     return true;
+    //     // }
+    // }
 }
 
 module.exports = {
