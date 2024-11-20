@@ -1,23 +1,29 @@
 'use strict';
 module.exports = {
-
-  //ham tao table (chay tu migrate)
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('deckdetails', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userName: {
-        type: Sequelize.STRING
+      cardquantity: {
+        type: Sequelize.FLOAT
       },
-      email: {
-        type: Sequelize.STRING
+      cardID: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'cards',
+          key: 'id',
+        },
       },
-      password: {
-        type: Sequelize.STRING
+      deckID: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'decks',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: true,
@@ -29,9 +35,7 @@ module.exports = {
       }
     });
   },
-
-  //ham xoa table (chay bang roll back)
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('deckdetails');
   }
 };

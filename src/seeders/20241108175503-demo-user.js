@@ -13,27 +13,37 @@ module.exports = {
         {
           userName: 'admin1',
           email: 'admin@gmail.com',
-          password: '123456'
+          password: '123456',
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
           userName: 'admin2',
           email: 'admin@gmail.com',
-          password: '123456'
+          password: '123456',
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
           userName: 'admin3',
           email: 'admin@gmail.com',
-          password: '123456'
+          password: '123456',
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
           userName: 'admin4',
           email: 'admin@gmail.com',
-          password: '123456'
+          password: '123456',
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
           userName: 'admin5',
           email: 'admin@gmail.com',
-          password: '123456'
+          password: '123456',
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
       ],
       {}

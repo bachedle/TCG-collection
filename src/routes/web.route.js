@@ -14,13 +14,19 @@ const initWebRoutes = (app) => {
     //mo hinh khai bao router: router.get('path', handler function)
     //day la route mac dinh
     router.get('/cards', cardController.getAllCards);
-    router.get('/decks', deckController.getDeckPage);
+    router.get('/cards/:id', cardController.getCardById);
+
     router.get('/users/register', userController.getRegisterPage);
     router.post('/users/register', userController.registerUser);
-    router.get('/cards/:id', cardController.getCardById);
     router.post('/users/login', asyncHandler(userController.loginUser));
+
     router.post('/mycollections', asyncHandler(myCollectionController.addMyCollection));
     router.delete('/mycollections/:cardID/:userID', asyncHandler(myCollectionController.removeCardFromMyCollection))
+   
+    router.post('/decks/cards/add', asyncHandler(deckController.addCardToDeck));
+    router.post('/decks/create', asyncHandler(deckController.createDeck));
+    router.delete('/decks/cards/remove', asyncHandler(deckController.removeCardFromDeck));
+    router.put('/decks/:deckID/edit', asyncHandler(deckController.updateDeck));
 
     //day la route khac
     router.get('/aboutme', (req, res) => {

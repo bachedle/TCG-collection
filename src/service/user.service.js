@@ -9,20 +9,23 @@ const hashUserPassword = (userPassword) => {
     return bcrypt.hashSync(userPassword, salt);
 }
 
-const createNewUser = (userName, email, password) => {
+const createNewUser = async (userName, email, password) => {
     let hashPassword = hashUserPassword(password);
-    return db.User.create({
-        userName: userName,
-        email: email,
-        password: hashPassword
+    console.log('hashPassword', hashPassword);
+    console.log('userName', userName);
+    console.log('email', email);
+    return await db.user.create({
+            userName: userName,
+            email: email,
+            password: hashPassword
     });
 }
 
 const loginUser = async (email, password) => {
-    let user = await db.User.findOne({
+    let user = await db.user.findOne({
         where: { email: email }
     });
-    console.log('User', user);
+    console.log('user', user);
 
     if (user === null) 
     {

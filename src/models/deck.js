@@ -3,22 +3,24 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class mycollection extends Model {
+  class deck extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      deck.hasMany(models.deckdetail, {
+        foreignKey: "deckID",
+      });    
     }
   };
-  mycollection.init({
+  deck.init({
     quantity: DataTypes.FLOAT
   }, {
     sequelize,
-    modelName: 'mycollection',
-    tableName: 'mycollections'
+    modelName: 'deck',
+    tableName: 'decks',
   });
-  return mycollection;
+  return deck;
 };

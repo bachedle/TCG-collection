@@ -8,6 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+
+      userID: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'users',
+            key: 'id',
+        }
+      },
       quantity: {
         type: Sequelize.FLOAT
       },

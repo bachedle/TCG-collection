@@ -16,7 +16,7 @@ const addMyCollection = async (userID, cardID) =>
             throw new Error("card not found");
         }
         
-        const [myCollectionItem, created] = await db.MyCollection.findOrCreate({  //tim khong thay trong collection thi tao moi, created = true
+        const [myCollectionItem, created] = await db.mycollection.findOrCreate({  //tim khong thay trong collection thi tao moi, created = true
           where: {
             cardID: cardID, userID: userID
           },
@@ -49,7 +49,7 @@ const removeCardFromMyCollection = async (userID, cardID) =>
             throw new Error("card not found");
         }
 
-        const myCollectionItem = await db.MyCollection.findOne({
+        const myCollectionItem = await db.mycollection.findOne({
             where: {
                 cardID: cardID, userID: userID
             },
@@ -61,7 +61,7 @@ const removeCardFromMyCollection = async (userID, cardID) =>
         }
         if(myCollectionItem.quantity === 1)
         {
-            await db.MyCollection.destroy({
+            await db.mycollection.destroy({
                 where: {
                     cardID: cardID, userID: userID
                 },
