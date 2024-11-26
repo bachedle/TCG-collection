@@ -1,4 +1,5 @@
 const db = require('../models');
+const { Op } = require('sequelize');
 
 class CardService {
     
@@ -16,6 +17,18 @@ class CardService {
         const card = await db.card.findByPk(id);
         return card;
     }
+
+    async getCardByName(cardName) {
+        const cards = await db.card.findAll({
+            where: {
+                cardName: {
+                    [Op.like]: `%${cardName}%`
+                }
+            }
+        })
+        return cards;
+    }
+
 }
 
 module.exports = new CardService();

@@ -15,8 +15,14 @@ const getCardById = async (req, res) => {
     res.json(card);
 }   
 
+const getCardByName = async (req, res) => {
+    let cards = await cardService.getCardByName(req.body.cardName);
+    return res.json(cards);
+}
+
 module.exports = {
     getCardPage: getCardPage,
     getAllCards: getAllCards,
-    getCardById: getCardById
+    getCardById: getCardById,
+    getCardByName: getCardByName
 }

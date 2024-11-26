@@ -13,25 +13,22 @@ const initWebRoutes = (app) => {
 
     //mo hinh khai bao router: router.get('path', handler function)
     //day la route mac dinh
-    router.get('/cards', cardController.getAllCards);
-    router.get('/cards/:id', cardController.getCardById);
-
     router.get('/users/register', userController.getRegisterPage);
     router.post('/users/register', userController.registerUser);
     router.post('/users/login', asyncHandler(userController.loginUser));
+    
+    router.get('/cards', cardController.getAllCards);
+    router.get('/cards/:id', cardController.getCardById);
+    router.post('/cards/search', asyncHandler(cardController.getCardByName));
 
     router.post('/mycollections', asyncHandler(myCollectionController.addMyCollection));
     router.delete('/mycollections/:cardID/:userID', asyncHandler(myCollectionController.removeCardFromMyCollection))
    
-    router.post('/decks/cards/add', asyncHandler(deckController.addCardToDeck));
     router.post('/decks/create', asyncHandler(deckController.createDeck));
-    router.delete('/decks/cards/remove', asyncHandler(deckController.removeCardFromDeck));
     router.put('/decks/:deckID/edit', asyncHandler(deckController.updateDeck));
 
-    //day la route khac
-    router.get('/aboutme', (req, res) => {
-        res.send('concac2hon');
-    });
+    router.post('/decks/cards/add', asyncHandler(deckController.addCardToDeck));
+    router.delete('/decks/cards/remove', asyncHandler(deckController.removeCardFromDeck));
 
     return app.use('/', router); //de cho system biet duong dan bat dau
 }
