@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   mycollection.init({
-    quantity: DataTypes.FLOAT
+    quantity: DataTypes.FLOAT,
+    cardRarity: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'mycollection',
