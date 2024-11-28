@@ -1,15 +1,15 @@
-import express from 'express';
-import viewEngine from './config/viewEngine.js';
-import initWebRoutes from './routes/web.route.js';
-import dotenv from 'dotenv';
-import bodyParser from 'body-parser';
-import connection from './config/connectDB.js';
-import swaggerJSDoc from 'swagger-jsdoc';
-import swaggerUI from 'swagger-ui-express'
-import userRoute from './routes/user.route.js';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import corsOptions from './config/CORS/CorsOption.js';
+const express = require('express');
+const viewEngine = require('./config/viewEngine.js');
+const initWebRoutes = require('./routes/web.route.js');
+const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
+const connection = require('./config/connectDB.js');
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
+// const userRoute = require('./routes/user.route.js');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const corsOptions = require('./config/CORS/CorsOption.js');
 
 dotenv.config();
 
@@ -29,55 +29,56 @@ const options = {
         ]
     },
     apis: ['src/routes/web.route.js']
-}
-const swaggerSpec = swaggerJSDoc(options)
+};
 
-app.use('/user', userRoute);
+const swaggerSpec = swaggerJSDoc(options);
+
+// app.use('/user', userRoute);
 
 app.use(cookieParser());
 app.use(cors(corsOptions));
-// function swaggerDocs(app, port) {
-  // Swagger Page
-  app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
-  // Documentation in JSON format
-  app.get('/docs.json', (req, res) => {
-    res.setHeader('Content-Type', 'application/json')
-    res.send(swaggerSpec)
-  })
 
-//test connection
+// Swagger documentation setup
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+app.get('/docs.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
+
+// Test connection
 connection();
 
-//config view engine
+// Config view engine
 viewEngine(app);
-//config body parser
+
+// Config body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//init web routes (route khai bao o day, tao file rieng de khai bao route)
+
+// Init web routes
 initWebRoutes(app);
 
-
-// handling errors
+// Handling 404 errors
 app.use((req, res, next) => {
     const error = new Error('Not Found');
     error.status = 404;
-    return res.status(404).json({
-        message: error.message
-    });
+    next(error);
 });
 
+// Global error handler
 app.use((error, req, res, next) => {
-    const statusCode = error.status || 500
-    return res.status(statusCode).json({
+    const statusCode = error.status || 500;
+    res.status(statusCode).json({
         status: 'error',
         code: statusCode,
         message: error.message || 'Internal Server Error'
-    })
+    });
 });
 
-//port
-const PORT = process.env.PORT;
+// Start server
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-export default app;
+
+module.exports = app;

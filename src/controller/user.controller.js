@@ -1,4 +1,4 @@
-import userService from '../service/user.service';
+const userService = require('../service/user.service');
 
 const getRegisterPage = (req, res) => {
     res.render('user.ejs');

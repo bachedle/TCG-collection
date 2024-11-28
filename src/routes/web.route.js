@@ -1,9 +1,9 @@
-import express from 'express';
-// import homeController from '../controller/home.controller';
-import deckController from '../controller/deck.controller';
-import userController from '../controller/user.controller';
-import myCollectionController from '../controller/mycollection.controller';
-// import cardController from '../controller/card.controller'
+const express = require('express');
+// const homeController = require('../controller/home.controller');
+const deckController = require('../controller/deck.controller');
+const userController = require('../controller/user.controller');
+const myCollectionController = require('../controller/mycollection.controller');
+// const cardController = require('../controller/card.controller')
 const asyncHandler = require('express-async-handler')
 
 const cardController = require('../controller/card.controller');
@@ -378,4 +378,4 @@ const initWebRoutes = (app) => {
 
     return app.use('/', router); //de cho system biet duong dan bat dau
 }
-export default initWebRoutes;
+module.exports = initWebRoutes;

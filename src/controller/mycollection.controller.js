@@ -1,4 +1,4 @@
-import myCollectionService from '../service/mycollection.service';
+const myCollectionService = require('../service/mycollection.service');
 
 const addMyCollection = async (req, res) => {
     let myCollection = await myCollectionService.addMyCollection(req.body.userID, req.body.cardID);

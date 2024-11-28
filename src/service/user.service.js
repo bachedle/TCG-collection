@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+const bcrypt = require('bcrypt');
 const salt = bcrypt.genSaltSync(10);
 
 // create the connection to database
@@ -60,5 +60,4 @@ module.exports = {
     loginUser: loginUser
 
 }
-
 

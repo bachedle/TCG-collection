@@ -17,4 +17,4 @@ const connection = async () => {
     }
 }
 
-export default connection;
+module.exports = connection;

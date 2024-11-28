@@ -1,4 +1,4 @@
-import cardService from '../service/card.service';
+const cardService = require('../service/card.service');
 
 
 const getCardPage = (req, res) => {
