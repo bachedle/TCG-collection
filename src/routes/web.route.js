@@ -7,6 +7,7 @@ const myCollectionController = require('../controller/mycollection.controller');
 const asyncHandler = require('express-async-handler')
 
 const cardController = require('../controller/card.controller');
+const mycollectionController = require('../controller/mycollection.controller');
 const router = express.Router();
 
 
@@ -234,6 +235,7 @@ const initWebRoutes = (app) => {
  *         description: Server Error
  */
     router.delete('/mycollections/:cardID/:userID', asyncHandler(myCollectionController.removeCardFromMyCollection))
+    router.get('/mycollections/yourcards/:userID', asyncHandler(mycollectionController.getMyCollection))
    
     /**
  * @openapi

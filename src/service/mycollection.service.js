@@ -1,5 +1,17 @@
 const db = require('../models');
 
+const getMyCollection = async (userID) => {
+  try {
+      const mycollections = await db.mycollection.findAll({ where: {userID : userID}, include: {
+        model: db.card,
+      }});
+      return mycollections;
+  } catch (error) {
+      console.log(error);
+      throw error;
+  }
+}
+
 const addMyCollection = async (userID, cardID) =>
 {
         const user = await db.user.findOne({ id: userID });
@@ -78,5 +90,6 @@ const removeCardFromMyCollection = async (userID, cardID) =>
 
 module.exports = {
     addMyCollection: addMyCollection,
-    removeCardFromMyCollection: removeCardFromMyCollection
+    removeCardFromMyCollection: removeCardFromMyCollection,
+    getMyCollection: getMyCollection
 }

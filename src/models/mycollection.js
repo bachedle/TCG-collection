@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      mycollection.hasOne(models.card, {
+        foreignKey: "id",
+      })
     }
   };
   mycollection.init({

@@ -21,9 +21,10 @@ const loginUser = async (req, res) =>
     let password = req.body.password;
     console.log('Email', email);
     console.log('Password', password);
-    await userService.loginUser(email, password);
+    
 
-    return res.send('login success');
+    const user = await userService.loginUser(email, password);
+    return res.json(user);
 }
 module.exports = {
     getRegisterPage: getRegisterPage,
