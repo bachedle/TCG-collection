@@ -7,6 +7,10 @@ import connection from './config/connectDB.js';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express'
 import userRoute from './routes/user.route.js';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import corsOptions from './config/CORS/CorsOption.js';
+
 dotenv.config();
 
 const app = express();
@@ -29,6 +33,9 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options)
 
 app.use('/user', userRoute);
+
+app.use(cookieParser());
+app.use(cors(corsOptions));
 // function swaggerDocs(app, port) {
   // Swagger Page
   app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
