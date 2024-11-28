@@ -4,10 +4,39 @@ import initWebRoutes from './routes/web.route.js';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import connection from './config/connectDB.js';
-
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUI from 'swagger-ui-express'
+import userRoute from './routes/user.route.js';
 dotenv.config();
 
 const app = express();
+
+const options = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'API Documentation',
+            version: '1.0.0',
+        },
+        servers: [
+            {
+                url: 'http://localhost:8080'
+            }
+        ]
+    },
+    apis: ['src/routes/web.route.js']
+}
+const swaggerSpec = swaggerJSDoc(options)
+
+app.use('/user', userRoute);
+// function swaggerDocs(app, port) {
+  // Swagger Page
+  app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
+  // Documentation in JSON format
+  app.get('/docs.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json')
+    res.send(swaggerSpec)
+  })
 
 //test connection
 connection();
@@ -19,6 +48,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //init web routes (route khai bao o day, tao file rieng de khai bao route)
 initWebRoutes(app);
+
 
 // handling errors
 app.use((req, res, next) => {
