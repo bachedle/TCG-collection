@@ -8,6 +8,7 @@ const asyncHandler = require('express-async-handler')
 
 const cardController = require('../controller/card.controller');
 const mycollectionController = require('../controller/mycollection.controller');
+const { deleteDeck } = require('../service/deck.service');
 const router = express.Router();
 
 
@@ -235,6 +236,7 @@ const initWebRoutes = (app) => {
  *         description: Server Error
  */
     router.delete('/mycollections/:cardID/:userID', asyncHandler(myCollectionController.removeCardFromMyCollection))
+
     router.get('/mycollections/yourcards/:userID', asyncHandler(mycollectionController.getMyCollection))
    
     /**
@@ -305,6 +307,7 @@ const initWebRoutes = (app) => {
  *         description: Server Error
  */
     router.put('/decks/:deckID/edit', asyncHandler(deckController.updateDeck));
+    router.delete('/decks/:deckID/delete', asycnHandler(deckController,deleteDeck));
 /**
  * @openapi
  * /decks/cards/add:
