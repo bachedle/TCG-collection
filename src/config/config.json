@@ -6,7 +6,10 @@
     "host": "dpg-ct5hinrv2p9s73900b10-a.oregon-postgres.render.com",
     "dialect": "postgres",
     "dialectOptions": {
-        "ssl": true
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
     }
   },
   "test": {
@@ -21,6 +24,12 @@
     "password": "6Bdl9JLYL2GBl84DwxjkqwJacE2Bn3rB",
     "database": "tcg_db_9q2c",
     "host": "dpg-ct5hinrv2p9s73900b10-a.oregon-postgres.render.com",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
