@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('cards', [
+    await queryInterface.bulkInsert('Cards', [
       {
         cardName: 'Pikachu EX',
         cardType: 'Basic',

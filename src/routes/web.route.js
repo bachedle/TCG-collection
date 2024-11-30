@@ -307,7 +307,7 @@ const initWebRoutes = (app) => {
  *         description: Server Error
  */
     router.put('/decks/:deckID/edit', asyncHandler(deckController.updateDeck));
-    router.delete('/decks/:deckID/delete', asycnHandler(deckController,deleteDeck));
+    router.delete('/decks/:deckID/delete', asyncHandler(deckController,deleteDeck));
 /**
  * @openapi
  * /decks/cards/add:
