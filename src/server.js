@@ -25,6 +25,9 @@ const options = {
         servers: [
             {
                 url: 'http://localhost:8080'
+            },
+            {
+                url: 'https://tcg-collection.onrender.com'
             }
         ]
     },
