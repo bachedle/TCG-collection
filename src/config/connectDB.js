@@ -3,18 +3,14 @@ const { Sequelize } = require('sequelize');
 
 //ket noi database
 //lay info ben configjson
-const sequelize = new Sequelize('tcg_db_9q2c', 'tcg_db_9q2c_user', '6Bdl9JLYL2GBl84DwxjkqwJacE2Bn3rB', {
-    host: 'dpg-ct5hinrv2p9s73900b10-a.oregon-postgres.render.com',
-    port: 5432,
-    dialect: 'postgres',
-    logging:false,
-    dialectOptions: {
-        ssl: {
-            require: true,
-            rejectUnauthorized: false,
-        },
-    },
-});
+const sequelize = new Sequelize('postgresql://tcg_db_9q2c_user:6Bdl9JLYL2GBl84DwxjkqwJacE2Bn3rB@dpg-ct5hinrv2p9s73900b10-a.oregon-postgres.render.com/tcg_db_9q2c?sslmode=require',
+    {
+        dialect: 'postgres',
+        dialectoptions: {
+            ssl: true
+        }   
+    }
+);
 
 //khai bao ham connection
 const connection = async () => {
