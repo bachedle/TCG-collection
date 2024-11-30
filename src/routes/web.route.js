@@ -6,9 +6,10 @@ const myCollectionController = require('../controller/mycollection.controller');
 // const cardController = require('../controller/card.controller')
 const asyncHandler = require('express-async-handler')
 
+
+
 const cardController = require('../controller/card.controller');
 const mycollectionController = require('../controller/mycollection.controller');
-const { deleteDeck } = require('../service/deck.service');
 const router = express.Router();
 
 
@@ -238,7 +239,66 @@ const initWebRoutes = (app) => {
     router.delete('/mycollections/:cardID/:userID', asyncHandler(myCollectionController.removeCardFromMyCollection))
 
     router.get('/mycollections/yourcards/:userID', asyncHandler(mycollectionController.getMyCollection))
-   
+   /**
+ * @openapi
+ * /decks:
+ *   get:
+ *     tags:
+ *       - Deck Controller
+ *     summary: Get all decks
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved all decks
+ *       500:
+ *         description: Server Error
+ */
+    router.get('/decks', asyncHandler(deckController.getAllDeck));
+    /**
+ * @openapi
+ * /decks/{id}:
+ *   get:
+ *     tags:
+ *       - Deck Controller
+ *     summary: Get a deck by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Deck's ID
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved the deck
+ *       404:
+ *         description: Deck not found
+ *       500:
+ *         description: Server Error
+ */
+    router.get('/decks/:id', asyncHandler(deckController.getDeckById));
+    /**
+ * @openapi
+ * /decks/search:
+ *   get:
+ *     tags:
+ *       - Deck Controller
+ *     summary: Search for decks by name
+ *     parameters:
+ *       - in: query
+ *         name: deckName
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Name of the deck to search for
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved matching decks
+ *       404:
+ *         description: No decks found
+ *       500:
+ *         description: Server Error
+ */
+    router.get('/decks/search', asyncHandler(deckController.getDeckByName));
     /**
  * @openapi
  * /decks/create:
@@ -307,7 +367,29 @@ const initWebRoutes = (app) => {
  *         description: Server Error
  */
     router.put('/decks/:deckID/edit', asyncHandler(deckController.updateDeck));
-    router.delete('/decks/:deckID/delete', asyncHandler(deckController,deleteDeck));
+    /**
+ * @openapi
+ * /decks/{deckID}/delete:
+ *   delete:
+ *     tags:
+ *       - Deck Controller
+ *     summary: Delete a deck
+ *     parameters:
+ *       - in: path
+ *         name: deckID
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the deck to delete
+ *     responses:
+ *       200:
+ *         description: Deck deleted successfully
+ *       404:
+ *         description: Deck not found
+ *       500:
+ *         description: Server Error
+ */
+    router.delete('/decks/:deckID/delete', asyncHandler(deckController.deleteDeck));
 /**
  * @openapi
  * /decks/cards/add:

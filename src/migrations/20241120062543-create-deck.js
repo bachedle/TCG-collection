@@ -8,7 +8,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-
+      deckName: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       userID: {
         type: Sequelize.INTEGER,
         references: {

@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   deck.init({
-    quantity: DataTypes.FLOAT
+    quantity: DataTypes.FLOAT,
+    deckName: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'deck',

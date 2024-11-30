@@ -1,3 +1,4 @@
+// const deckService = require('../service/deck.service');
 const DeckService = require('../service/deck.service');
 
 // const getDeckPage = async(req, res) => {
@@ -6,9 +7,21 @@ const DeckService = require('../service/deck.service');
 //     await DeckService.getDeckPage(listOfCards, deckID);
 //     res.send('deck page');
 // }
+const getAllDeck = async (req, res) => {
+    let decks = await DeckService.getAllDeck();
+    res.json(decks);
+}
+const getDeckById = async (req, res) => {
+    let decks = await DeckService.getDeckById();
+    res.json(decks);
+}
+const getDeckByName = async (req,res) => {
+    let decks = await DeckService.getDeckByName();
+    res.json(decks);
+}
 const createDeck = async (req, res) => {
     const deckName = req.body.deckName;
-    const userID = req.body.userID;
+    const userID = req.body.userID; 
     return res.json(await DeckService.createDeck(deckName, userID));
 }
 const deleteDeck = async (req, res) => {
@@ -29,11 +42,14 @@ const removeCardFromDeck = async (req, res) => {
 const updateDeck = async (req, res) => {
     const deckName = req.body.deckName;
     const deckID = req.params.deckID;
-    return res.json(await DeckService.updateDeck(deckName, deckID),'update done');
+    return res.json(await DeckService.updateDeck(deckName, deckID));
 }
 
 module.exports = {
     // getDeckPage: getDeckPage,
+    getAllDeck: getAllDeck,
+    getDeckById: getDeckById,
+    getDeckByName: getDeckByName,
     createDeck: createDeck,
     deleteDeck: deleteDeck,
     addCardToDeck: addCardToDeck,

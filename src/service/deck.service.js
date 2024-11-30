@@ -2,6 +2,44 @@
 const db = require('../models');
 // listOfCards = [{cardID: 1, cardquantity: 1}, {cardID: 2, cardquantity: 2}]
 class DeckService {
+  async getAllDeck() {
+    try {
+        const decks = await db.deck.findAll();
+        return decks;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+async getDeckById(id) {
+    try {
+        const deck = await db.deck.findByPk(id);
+        if (!deck) {
+            throw new Error("Deck not found");
+        }
+        return deck;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+async getDeckByName(deckName) {
+    try {
+        const decks = await db.deck.findAll({
+            where: {
+                deckName: {
+                    [Op.like]: `%${deckName}%`
+                }
+            }
+        });
+        return decks;
+    } catch (error) {
+        console.log(error); 
+        throw error;
+    }
+}
      addCardToDeck = async (deckID, listOfCards) =>
         {
        
