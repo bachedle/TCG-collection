@@ -3,12 +3,11 @@ const { Sequelize } = require('sequelize');
 
 //ket noi database
 //lay info ben configjson
-const sequelize = new Sequelize('postgresql://tcg_db_9q2c_user:6Bdl9JLYL2GBl84DwxjkqwJacE2Bn3rB@dpg-ct5hinrv2p9s73900b10-a.oregon-postgres.render.com/tcg_db_9q2c?sslmode=require',
+const sequelize = new Sequelize('postgresql://tcg_db_9q2c_user:6Bdl9JLYL2GBl84DwxjkqwJacE2Bn3rB@dpg-ct5hinrv2p9s73900b10-a.oregon-postgres.render.com/tcg_db_9q2c?ssl=true',
     {
         dialect: 'postgres',
-        dialectoptions: {
-            ssl: true
-        }   
+        protocol: 'postgres',
+        dialectOptions: {}, //removed ssl
     }
 );
 
