@@ -191,11 +191,11 @@ const initWebRoutes = (app) => {
  *               userID:
  *                 type: string
  *                 description: User's ID
- *                 default: user123
+ *                 default: 1
  *               cardID:
  *                 type: string
  *                 description: Card's ID
- *                 default: card456
+ *                 default: 1
  *     responses:
  *       200:
  *         description: Card successfully added to collection
@@ -204,7 +204,7 @@ const initWebRoutes = (app) => {
  *       500:
  *         description: Server Error
  */
-    router.post('/mycollections', asyncHandler(myCollectionController.addMyCollection));
+    router.post('/mycollections/add', asyncHandler(myCollectionController.addMyCollection));
 
     /**
  * @openapi
@@ -236,7 +236,8 @@ const initWebRoutes = (app) => {
  *       500:
  *         description: Server Error
  */
-    router.delete('/mycollections/:cardID/:userID', asyncHandler(myCollectionController.removeCardFromMyCollection))
+    router.delete('/mycollections/delete/:cardID/:userID', asyncHandler(myCollectionController.removeCardFromMyCollection))
+
 
     router.get('/mycollections/yourcards/:userID', asyncHandler(mycollectionController.getMyCollection))
    /**
