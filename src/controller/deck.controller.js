@@ -12,11 +12,11 @@ const getAllDeck = async (req, res) => {
     res.json(decks);
 }
 const getDeckById = async (req, res) => {
-    let decks = await DeckService.getDeckById();
+    let decks = await DeckService.getDeckById(req.params.id);
     res.json(decks);
 }
 const getDeckByName = async (req,res) => {
-    let decks = await DeckService.getDeckByName();
+    let decks = await DeckService.getDeckByName(req.body.deckName);
     res.json(decks);
 }
 const createDeck = async (req, res) => {
