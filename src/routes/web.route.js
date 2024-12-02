@@ -208,7 +208,7 @@ const initWebRoutes = (app) => {
 
     /**
  * @openapi
- * /mycollections/{cardID}/{userID}:
+ * /mycollections/{cardID}/{userID}/delete:
  *   delete:
  *     tags:
  *       - MyCollection Controller
@@ -236,10 +236,32 @@ const initWebRoutes = (app) => {
  *       500:
  *         description: Server Error
  */
-    router.delete('/mycollections/delete/:cardID/:userID', asyncHandler(myCollectionController.removeCardFromMyCollection))
+    router.delete('/mycollections/:cardID/:userID/delete', asyncHandler(myCollectionController.removeCardFromMyCollection))
 
 
-    router.get('/mycollections/yourcards/:userID', asyncHandler(mycollectionController.getMyCollection))
+    /**
+     * @openapi
+     * /mycollections/{userID}/yourcards:
+     *   get:
+     *     tags:
+     *       - MyCollection Controller
+     *     summary: Get user's card collection
+     *     parameters:
+     *       - in: path
+     *         name: userID
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: User's ID
+     *     responses:
+     *       200:
+     *         description: Successfully retrieved user's card collection
+     *       404:
+     *         description: User not found
+     *       500:
+     *         description: Server Error
+     */
+    router.get('/mycollections/:userID/yourcards', asyncHandler(mycollectionController.getMyCollection))
    /**
  * @openapi
  * /decks:
