@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       mycollection.hasOne(models.card, {
         foreignKey: "id",
+        sourceKey: "cardID"
       })
     }
   };
