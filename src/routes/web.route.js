@@ -122,7 +122,7 @@ const initWebRoutes = (app) => {
     router.get('/cards', cardController.getAllCards);
     /**
  * @openapi
- * /cards/{id}:
+ * /cards/{cardID}:
  *   get:
  *     tags:
  *       - Card Controller
@@ -256,7 +256,7 @@ const initWebRoutes = (app) => {
     router.get('/decks', asyncHandler(deckController.getAllDeck));
     /**
  * @openapi
- * /decks/{id}:
+ * /decks/{deckID}:
  *   get:
  *     tags:
  *       - Deck Controller
