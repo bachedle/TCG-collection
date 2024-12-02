@@ -12,6 +12,7 @@ const getAllCards = async (req, res) => {
 
 const getCardById = async (req, res) => {
     let card = await cardService.getCardById(req.params.id);
+    console.log(card);
     res.json(card);
 }   
 

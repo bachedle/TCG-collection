@@ -37,7 +37,11 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 // app.use('/user', userRoute);
+// app.use(express.static('Public'));
 
+// // Your existing routes
+// app.use('/cardimages', express.static(path.join(__dirname, 'public', 'cardimages')));
+// const authRouter = require('./routes/authRouter');
 app.use(cookieParser());
 app.use(cors(corsOptions));
 
