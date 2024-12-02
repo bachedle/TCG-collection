@@ -173,7 +173,7 @@ const initWebRoutes = (app) => {
 
     /**
  * @openapi
- * /mycollections:
+ * /mycollections/add:
  *   post:
  *     tags:
  *       - MyCollection Controller
