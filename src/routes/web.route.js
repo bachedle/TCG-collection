@@ -141,7 +141,7 @@ const initWebRoutes = (app) => {
  *       500:
  *         description: Server Error
  */
-    router.get('/cards/:id', cardController.getCardById);
+    router.get('/cards/:cardID', cardController.getCardById);
     /**
  * @openapi
  * /cards/search:
@@ -276,7 +276,7 @@ const initWebRoutes = (app) => {
  *       500:
  *         description: Server Error
  */
-    router.get('/decks/:id', asyncHandler(deckController.getDeckById));
+    router.get('/decks/:deckID', asyncHandler(deckController.getDeckById));
     /**
  * @openapi
  * /decks/search:
