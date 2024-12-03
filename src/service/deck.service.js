@@ -161,9 +161,20 @@ async getDeckByName(deckName) {
     }
     
      deleteDeck = async (deckID) => {
-        return await db.deck.destroy({
-            where: { id: deckID }
-        });
+        try {
+            // First delete all related deck details
+            await db.deckdetail.destroy({
+                where: { deckID: deckID }
+            });
+
+            // Then delete the deck itself
+            return await db.deck.destroy({
+                where: { id: deckID }
+            });
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     } 
 }
 
